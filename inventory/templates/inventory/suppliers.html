@@ -22,7 +22,7 @@
 		<tbody>
 			{% for supplier in object_list %}
 			<tr>
-				<td>{{ supplier.name }}</td>
+				<td><a href="{% url 'supplier_detail' supplier.pk %}" class="btn">{{ supplier.name }}</a></td>
 				<td>{{ supplier.contact_name }}</td>
 				<td>{{ supplier.email }}</td>
 				<td>{{ supplier.phone }}</td>
