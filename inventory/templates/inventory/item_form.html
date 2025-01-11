@@ -1,0 +1,25 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Inventory Item{% endblock %}
+
+{% block content %}
+<div class="card">
+	<h1>{% if object %}Edit{% else %}Add{% endif %} Inventory Item</h1>
+	
+	<form method="post">
+		{% csrf_token %}
+		{% for field in form %}
+		<div class="form-group">
+			<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+			{{ field }}
+			{% if field.help_text %}
+			<small style="display: block; margin-top: 0.25rem; color: var(--gray);">{{ field.help_text }}</small>
+			{% endif %}
+		</div>
+		{% endfor %}
+		
+		<button type="submit">Save Item</button>
+		<a href="{% url 'inventory_list' %}" class="btn" style="background: var(--gray);">Cancel</a>
+	</form>
+</div>
+{% endblock %}

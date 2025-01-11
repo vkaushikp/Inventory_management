@@ -1,0 +1,47 @@
+{% extends 'inventory/base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Supplier{% endblock %}
+
+{% block content %}
+<div class="card">
+	<h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Supplier</h1>
+	
+	<form method="post">
+		{% csrf_token %}
+		
+		<div class="form-group">
+			<label for="{{ form.name.id_for_label }}">Name</label>
+			{{ form.name }}
+		</div>
+		
+		<div class="form-group">
+			<label for="{{ form.contact_name.id_for_label }}">Contact Name</label>
+			{{ form.contact_name }}
+		</div>
+		
+		<div class="form-group">
+			<label for="{{ form.email.id_for_label }}">Email</label>
+			{{ form.email }}
+		</div>
+		
+		<div class="form-group">
+			<label for="{{ form.phone.id_for_label }}">Phone</label>
+			{{ form.phone }}
+		</div>
+		
+		<div class="form-group">
+			<label for="{{ form.address.id_for_label }}">Address</label>
+			{{ form.address }}
+			<style>
+				textarea {
+					min-height: 100px;
+					resize: vertical;
+				}
+			</style>
+		</div>
+		
+		<button type="submit">{% if form.instance.pk %}Update{% else %}Add{% endif %} Supplier</button>
+		<a href="{% url 'supplier_list' %}" class="btn" style="background: var(--gray);">Cancel</a>
+	</form>
+</div>
+{% endblock %}

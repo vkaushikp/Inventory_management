@@ -1,0 +1,53 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Inventory List{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+		<h1 style="margin: 0;">Inventory Items</h1>
+		<a href="{% url 'inventory_create' %}" class="btn">Add Item</a>
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Unit Cost</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in object_list %}
+			<tr>
+				<td><a href="{% url 'inventory_detail' item.pk %}" class="btn">{{ item.name }}</a></td>
+				<td>{{ item.quantity }}</td>
+				<td>${{ item.unit_cost }}</td>
+				<td>
+					{% if item.quantity <= item.reorder_level %}
+					<span style="background: var(--black); color: var(--white); padding: 0.5rem 1rem; border-radius: 12px;">
+						Low Stock
+					</span>
+					{% else %}
+					<span style="border: 2px solid var(--black); padding: 0.5rem 1rem; border-radius: 12px;">
+						In Stock
+					</span>
+					{% endif %}
+				</td>
+				<td>
+					<a href="{% url 'inventory_update' item.pk %}" class="btn" style="margin-right: 0.5rem;">Edit</a>
+					<a href="{% url 'inventory_delete' item.pk %}" class="btn" style="background: var(--gray);">Delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+			{% if not object_list %}
+			<tr>
+				<td colspan="5" style="text-align: center;">No inventory items found. Add one to get started!</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}

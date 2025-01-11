@@ -1,0 +1,62 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Home - Inventory Management{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="brutal-section">
+		<h1 class="brutal-heading">Inventory Management System</h1>
+		<p class="brutal-text">Efficiently manage your inventory with our powerful tools</p>
+		
+		<div class="brutal-grid">
+			<a href="{% url 'inventory_list' %}" class="brutal-card">
+				<h2>Inventory</h2>
+				<p>Manage your stock levels</p>
+			</a>
+			<a href="{% url 'supplier_list' %}" class="brutal-card">
+				<h2>Suppliers</h2>
+				<p>View and manage suppliers</p>
+			</a>
+		</div>
+	</div>
+</div>
+
+<style>
+.brutal-section {
+	padding: 2rem;
+	border: 4px solid black;
+	margin: 2rem 0;
+}
+
+.brutal-heading {
+	font-size: 3rem;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 1rem;
+}
+
+.brutal-text {
+	font-size: 1.2rem;
+	margin-bottom: 2rem;
+}
+
+.brutal-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1rem;
+}
+
+.brutal-card {
+	padding: 1.5rem;
+	border: 4px solid black;
+	text-decoration: none;
+	color: black;
+	transition: all 0.3s ease;
+}
+
+.brutal-card:hover {
+	background: black;
+	color: white;
+}
+</style>
+{% endblock %}

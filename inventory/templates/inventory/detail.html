@@ -1,0 +1,67 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}{{ object.name }} - Inventory Details{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+		<h1 style="margin: 0;">{{ object.name }}</h1>
+		<div style="display: flex; gap: 1rem;">
+			<a href="{% url 'inventory_update' object.pk %}" class="btn">Edit Item</a>
+			<a href="{% url 'inventory_delete' object.pk %}" class="btn" style="background: var(--gray);">Delete</a>
+		</div>
+	</div>
+
+	{% if object.description %}
+	<div style="border: 3px solid var(--black); padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+		<p style="margin: 0;">{{ object.description }}</p>
+	</div>
+	{% endif %}
+	
+	<table>
+		<tr>
+			<th style="width: 30%;">Quantity</th>
+			<td>
+				<span style="font-size: 1.25rem; font-weight: 600;">{{ object.quantity }}</span>
+				{% if object.quantity <= object.reorder_level %}
+				<span style="background: var(--black); color: var(--white); padding: 0.5rem 1rem; border-radius: 12px; margin-left: 1rem;">
+					Low Stock
+				</span>
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<th>Unit Cost</th>
+			<td style="font-family: monospace; font-size: 1.25rem;">${{ object.unit_cost }}</td>
+		</tr>
+		<tr>
+			<th>Total Value</th>
+			<td style="font-family: monospace; font-size: 1.25rem;">${{ object.total_value }}</td>
+		</tr>
+		<tr>
+			<th>Supplier</th>
+			<td>
+				{% if object.supplier %}
+				<a href="{% url 'supplier_detail' object.supplier.pk %}" class="btn">
+					{{ object.supplier }}
+				</a>
+				{% else %}
+				<span style="color: var(--gray);">No supplier assigned</span>
+				{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<th>Reorder Level</th>
+			<td>{{ object.reorder_level }}</td>
+		</tr>
+		<tr>
+			<th>Last Updated</th>
+			<td>{{ object.last_updated|date:"F j, Y, g:i a" }}</td>
+		</tr>
+	</table>
+</div>
+
+<div style="margin-top: 2rem;">
+	<a href="{% url 'inventory_list' %}" class="btn" style="background: var(--gray);">← Back to Inventory</a>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-8">
+		<h2>Low Stock Items</h2>
+		<div class="list-group">
+			{% for item in low_stock_items %}
+			<a href="{% url 'inventory_detail' item.pk %}" class="list-group-item list-group-item-action">
+				{{ item.name }} - {{ item.quantity }} remaining
+			</a>
+			{% empty %}
+			<div class="alert alert-success">No low stock items</div>
+			{% endfor %}
+		</div>
+	</div>
+	
+	<div class="col-md-4">
+		<h2>Recent Orders</h2>
+		<div class="list-group">
+			{% for order in recent_orders %}
+			<div class="list-group-item">
+				<h6>Order #{{ order.id }}</h6>
+				<p>{{ order.item.name }} - {{ order.quantity }} units</p>
+				<small class="text-muted">{{ order.order_date }}</small>
+			</div>
+			{% empty %}
+			<div class="alert alert-info">No recent orders</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

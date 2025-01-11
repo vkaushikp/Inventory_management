@@ -1,0 +1,43 @@
+{% extends "inventory/base.html" %}
+
+{% block title %}Suppliers{% endblock %}
+
+{% block content %}
+<div class="card">
+	<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+		<h1 style="margin: 0;">Suppliers</h1>
+		<a href="{% url 'supplier_create' %}" class="btn">Add Supplier</a>
+	</div>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Contact</th>
+				<th>Email</th>
+				<th>Phone</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for supplier in object_list %}
+			<tr>
+				<td>{{ supplier.name }}</td>
+				<td>{{ supplier.contact_name }}</td>
+				<td>{{ supplier.email }}</td>
+				<td>{{ supplier.phone }}</td>
+				<td>
+					<a href="{% url 'supplier_update' supplier.pk %}" class="btn" style="margin-right: 0.5rem;">Edit</a>
+					<a href="{% url 'supplier_delete' supplier.pk %}" class="btn" style="background: var(--gray);">Delete</a>
+				</td>
+			</tr>
+			{% endfor %}
+			{% if not object_list %}
+			<tr>
+				<td colspan="5" style="text-align: center;">No suppliers found. Add one to get started!</td>
+			</tr>
+			{% endif %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
